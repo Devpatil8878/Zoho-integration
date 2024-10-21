@@ -1,0 +1,6 @@
+@Zoho_integration_HostAddress = http://localhost:5179
+
+GET {{Zoho_integration_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
