@@ -1,0 +1,203 @@
+{
+  "projects": [
+    {
+      "is_strict": "no",
+      "bug_count": {
+        "closed": 0,
+        "open": 0
+      },
+      "owner_id": "60033746345",
+      "bug_client_permission": "allexternal",
+      "taskbug_prefix": "EZ2",
+      "start_date_long": 1729449000000,
+      "updated_date_long": 1729503573327,
+      "show_project_overview": true,
+      "task_count": {
+        "closed": 3,
+        "open": 14
+      },
+      "updated_date_format": "10-21-2024 03:09:33 PM",
+      "bug_defaultview": "6",
+      "id": 261391000000037031,
+      "is_chat_enabled": false,
+      "is_sprints_project": false,
+      "owner_name": "Devanand Patil",
+      "created_date_long": 1729503573294,
+      "created_by": "Devanand Patil",
+      "created_date_format": "10-21-2024 03:09:33 PM",
+      "comments_count": 0,
+      "profile_id": 261391000000034436,
+      "name": "Explore Zoho Projects!",
+      "updated_by": "Devanand Patil",
+      "updated_by_id": "60033746345",
+      "created_by_id": "60033746345",
+      "updated_by_zpuid": 261391000000034003,
+      "bug_prefix": "EZ2-I",
+      "status": "active",
+      "end_date": "11-26-2024",
+      "none_milestone_id": "261391000000000038",
+      "project_percent": "17",
+      "role": "admin",
+      "IS_BUG_ENABLED": true,
+      "link": {
+        "activity": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/activities/" },
+        "document": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/documents/" },
+        "forum": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/forums/" },
+        "timesheet": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/logs/" },
+        "task": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/tasks/" },
+        "folder": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/folders/" },
+        "milestone": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/milestones/" },
+        "bug": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/bugs/" },
+        "self": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/" },
+        "tasklist": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/tasklists/" },
+        "event": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/events/" },
+        "user": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/users/" },
+        "status": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000037031/statuses/" }
+      },
+      "created_by_zpuid": 261391000000034003,
+      "custom_status_id": "261391000000005089",
+      "milestone_count": {
+        "closed": 0,
+        "open": 1
+      },
+      "end_date_long": 1732645799000,
+      "custom_status_name": "Active",
+      "owner_zpuid": "261391000000034003",
+      "is_client_assign_bug": "false",
+      "billing_status": "Billable",
+      "currency": "USD",
+      "key": "01-2",
+      "start_date": "10-21-2024",
+      "owner_email": "0112it211017@gmail.com",
+      "custom_status_color": "#2cc8ba",
+      "currency_symbol": "$",
+      "enabled_tabs": [ "documents", "reports", "calendar", "timesheet", "milestones", "bugs", "tasks", "projectfeed", "dashboard", "users" ],
+      "is_public": "no",
+      "id_string": "261391000000037031",
+      "created_date": "10-21-2024",
+      "updated_date": "10-21-2024",
+      "cascade_setting": {
+        "date": false,
+        "logHours": false,
+        "plan": true,
+        "percentage": false,
+        "workHours": false
+      },
+      "layout_details": {
+        "task": {
+          "is_private": true,
+          "name": "Explore Zoho Projects!",
+          "id": "261391000000037015"
+        },
+        "bug": {
+          "name": "Explore Zoho Projects!",
+          "id": "261391000000037053"
+        },
+        "project": {
+          "name": "Standard Layout",
+          "id": "261391000000005008"
+        }
+      }
+    },
+    {
+      "is_strict": "no",
+      "bug_count": {
+        "closed": 0,
+        "open": 0
+      },
+      "owner_id": "60033746345",
+      "bug_client_permission": "allexternal",
+      "taskbug_prefix": "EZ1",
+      "start_date_long": 1729449000000,
+      "updated_date_long": 1729495576352,
+      "show_project_overview": true,
+      "task_count": {
+        "closed": 3,
+        "open": 14
+      },
+      "updated_date_format": "10-21-2024 12:56:16 PM",
+      "bug_defaultview": "6",
+      "id": 261391000000039023,
+      "is_chat_enabled": false,
+      "is_sprints_project": false,
+      "owner_name": "Devanand Patil",
+      "created_date_long": 1729495576338,
+      "created_by": "Devanand Patil",
+      "created_date_format": "10-21-2024 12:56:16 PM",
+      "comments_count": 0,
+      "profile_id": 261391000000034436,
+      "name": "Explore Zoho Projects!",
+      "updated_by": "Devanand Patil",
+      "updated_by_id": "60033746345",
+      "created_by_id": "60033746345",
+      "updated_by_zpuid": 261391000000034003,
+      "bug_prefix": "EZ1-I",
+      "status": "active",
+      "end_date": "11-26-2024",
+      "none_milestone_id": "261391000000000038",
+      "project_percent": "17",
+      "role": "Portal Owner",
+      "IS_BUG_ENABLED": true,
+      "link": {
+        "activity": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/activities/" },
+        "document": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/documents/" },
+        "forum": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/forums/" },
+        "timesheet": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/logs/" },
+        "task": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/tasks/" },
+        "folder": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/folders/" },
+        "milestone": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/milestones/" },
+        "bug": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/bugs/" },
+        "self": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/" },
+        "tasklist": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/tasklists/" },
+        "event": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/events/" },
+        "user": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/users/" },
+        "status": { "url": "https://projectsapi.zoho.in/restapi/portal/0112it211017gmaildotcom/projects/261391000000039023/statuses/" }
+      },
+      "created_by_zpuid": 261391000000034003,
+      "custom_status_id": "261391000000005089",
+      "description": "<p style='font-family: Roboto, sans-serif; font-size: 13px;'>Zoho Projects, belonging to the web based project management and collaboration tools, includes an issue tracking software that allows teams to collaborate and get projects done faster.&nbsp;<br><br>With Zoho Projects you can post the working status and project members can chat with each other. The Project Feed helps all the team members get immediate updates about the current status of their project. Users easily can keep all content organized and accessible by centrally posting files and easily creating a project web page or documentation.<br><br>Create project files directly on your browser, without any need to install additional software. Upload your Microsoft Office, Open Office, Star Office, AutoCad, Photoshop, ZIP files and any other kind of document that might be necessary for your project.<br><br>Issue Tracking module is a powerful issue submission software using which you can define a structure and organize how issues are to be handled.<\/p><p style='font-family: Roboto, sans-serif; font-size: 13px;'>Key Features<\/p><p style='font-family: Roboto, sans-serif; font-size: 13px;'><\/p><ul style='font-family: Roboto, sans-serif; font-size: 13px;'><li>Task Management and Time Tracking<\/li><li>Project Reports (Gantt Charts)<\/li><li>Project Calendar &amp; Meetings<\/li><li>Online Project Chat<\/li><li>Issue Tracking Software<\/li><li>Google Apps Integration<\/li><li>Document Management<\/li><li>Dropbox Integration<\/li><li>Hourly Tasks and Sub tasks<\/li><li>Github Integration<\/li><li>iPhone App<\/li><li>Email Collaboration<\/li><\/ul>",
+      "milestone_count": {
+        "closed": 0,
+        "open": 1
+      },
+      "end_date_long": 1732645799000,
+      "custom_status_name": "Active",
+      "owner_zpuid": "261391000000034003",
+      "is_client_assign_bug": "false",
+      "billing_status": "Billable",
+      "currency": "USD",
+      "key": "01-1",
+      "start_date": "10-21-2024",
+      "owner_email": "0112it211017@gmail.com",
+      "custom_status_color": "#2cc8ba",
+      "currency_symbol": "$",
+      "enabled_tabs": [ "documents", "reports", "calendar", "timesheet", "milestones", "bugs", "tasks", "projectfeed", "dashboard", "users" ],
+      "is_public": "no",
+      "id_string": "261391000000039023",
+      "created_date": "10-21-2024",
+      "updated_date": "10-21-2024",
+      "cascade_setting": {
+        "date": false,
+        "logHours": false,
+        "plan": true,
+        "percentage": false,
+        "workHours": false
+      },
+      "layout_details": {
+        "task": {
+          "is_private": true,
+          "name": "Explore Zoho Projects!",
+          "id": "261391000000039003"
+        },
+        "bug": {
+          "name": "Explore Zoho Projects!",
+          "id": "261391000000039045"
+        },
+        "project": {
+          "name": "Standard Layout",
+          "id": "261391000000005008"
+        }
+      }
+    }
+  ]
+}
