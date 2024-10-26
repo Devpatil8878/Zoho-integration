@@ -8,12 +8,18 @@ using System.Globalization;
 using HtmlAgilityPack;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Amazon;
+using Amazon.SecretsManager;
+using Amazon.SecretsManager.Model;
+using System.Diagnostics;
+
 
 
 
 public class ZohoController : Controller
 {
     List<object> RawTasks = new List<object>();
+
     async Task<(TaskContainer, object)> FetchRawTasks(Project project)
     {
         TaskContainer taskResponse = new TaskContainer();
@@ -66,8 +72,6 @@ public class ZohoController : Controller
 
         return (users, RawUsers);
     }
-
-
     async Task<List<GComment>> FetchComments(Zoho_integration.Models.Task task)
     {
         var commentRes = await httpClient.GetAsync(task.Link.Self.Url + "comments/");
@@ -262,8 +266,6 @@ public class ZohoController : Controller
 
         return gTasks;
     }
-
-
     public string ExtractTextFromHtml(string htmlContent)
     {
         HtmlDocument doc = new HtmlDocument();
@@ -283,11 +285,16 @@ public class ZohoController : Controller
     private const string AuthUrl = "https://accounts.zoho.in/oauth/v2/auth";
     private const string TokenUrl = "https://accounts.zoho.in/oauth/v2/token";
 
+    Stopwatch sw = new Stopwatch();
+
+    
+
 
     public ZohoController(IConfiguration configuration)
     {
-        ClientId = configuration["Zoho:ClientId"];
-        ClientSecret = configuration["Zoho:ClientSecret"];
+        ClientId = configuration["Zoho_ClientId"];
+        ClientSecret = configuration["Zoho_ClientSecret"];
+
     }
 
     private static string accessToken;
@@ -407,6 +414,7 @@ public class ZohoController : Controller
     [HttpGet("fetch-data")]
     public async Task<IActionResult> FetchData()
     {
+        sw.Start();
         if (DateTime.Now >= accessTokenExpiryTime)
         {
             Console.WriteLine("Access token has expired, refreshing...");
@@ -527,6 +535,9 @@ public class ZohoController : Controller
         var ess = await httpClient.GetAsync("https://projectsapi.zoho.in/restapi/portal/60033748886/projects/261391000000039023/logs/");
         var esssss = await ess.Content.ReadAsStringAsync();
         //return Ok(esssss);
+
+        sw.Stop();
+        Console.WriteLine("Time taken: " + sw.ElapsedMilliseconds);
             
 
         return Ok(gProjectSchemas);
