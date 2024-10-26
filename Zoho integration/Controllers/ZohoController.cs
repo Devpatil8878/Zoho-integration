@@ -292,8 +292,8 @@ public class ZohoController : Controller
 
     public ZohoController(IConfiguration configuration)
     {
-        ClientId = configuration["Zoho_ClientId"];
-        ClientSecret = configuration["Zoho_ClientSecret"];
+        ClientId = Environment.GetEnvironmentVariable("Zoho_ClientId");
+        ClientSecret = Environment.GetEnvironmentVariable("Zoho_ClientSecret");
 
     }
 
