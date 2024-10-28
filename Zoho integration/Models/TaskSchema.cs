@@ -50,7 +50,6 @@ namespace Zoho_integration.Models
 
         [JsonPropertyName("details")]
         public Details? Dets { get; set; }
-
         public Owner? Reporter => Dets.Owners[0];
         public string? Subtasks => Link.SubTask?.Url;
 

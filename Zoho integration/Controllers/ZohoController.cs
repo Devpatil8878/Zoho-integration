@@ -9,7 +9,6 @@ using System.Diagnostics;
 
 public class ZohoController : Controller
 {
-    List<object> RawTasks = new List<object>();
 
     async Task<(TaskContainer, object)> FetchRawTasks(Project project)
     {
@@ -269,6 +268,7 @@ public class ZohoController : Controller
     }
 
     public static PortalResponse PortalResponse { get; set; }
+    List<object> RawTasks = new List<object>();
 
     private string ClientId;
     private string ClientSecret;
@@ -292,11 +292,9 @@ public class ZohoController : Controller
     [HttpGet("authorize")]
     public IActionResult Authorize()
     {
-        var url = $"{AuthUrl}?response_type=code&client_id={ClientId}&scope=ZohoProjects.portals.READ ZohoProjects.portals.CREATE ZohoProjects.portals.UPDATE ZohoProjects.portals.DELETE ZohoProjects.projects.READ ZohoProjects.projects.CREATE ZohoProjects.projects.UPDATE ZohoProjects.projects.DELETE ZohoProjects.tasks.READ ZohoProjects.tasks.CREATE ZohoProjects.tasks.UPDATE ZohoProjects.tasks.DELETE ZohoProjects.milestones.READ ZohoProjects.milestones.CREATE ZohoProjects.milestones.UPDATE ZohoProjects.milestones.DELETE ZohoProjects.bugs.READ ZohoProjects.bugs.CREATE ZohoProjects.bugs.UPDATE ZohoProjects.bugs.DELETE ZohoProjects.forums.READ ZohoProjects.forums.CREATE ZohoProjects.forums.UPDATE ZohoProjects.forums.DELETE ZohoProjects.timesheets.READ ZohoProjects.timesheets.CREATE ZohoProjects.timesheets.UPDATE ZohoProjects.timesheets.DELETE ZohoProjects.users.READ ZohoProjects.users.CREATE ZohoProjects.users.UPDATE ZohoProjects.users.DELETE ZohoPC.files.ALL&redirect_uri={RedirectUri}&access_type=offline";
+        var url = $"{AuthUrl}?response_type=code&client_id={ClientId}&scope=ZohoProjects.portals.READ ZohoProjects.portals.CREATE ZohoProjects.portals.UPDATE ZohoProjects.portals.DELETE ZohoProjects.projects.READ ZohoProjects.projects.CREATE ZohoProjects.projects.UPDATE ZohoProjects.projects.DELETE ZohoProjects.tasks.READ ZohoProjects.tasks.CREATE ZohoProjects.tasks.UPDATE ZohoProjects.tasks.DELETE ZohoProjects.milestones.READ ZohoProjects.milestones.CREATE ZohoProjects.milestones.UPDATE ZohoProjects.milestones.DELETE ZohoProjects.bugs.READ ZohoProjects.bugs.CREATE ZohoProjects.bugs.UPDATE ZohoProjects.bugs.DELETE ZohoProjects.forums.READ ZohoProjects.forums.CREATE ZohoProjects.forums.UPDATE ZohoProjects.forums.DELETE ZohoProjects.timesheets.READ ZohoProjects.timesheets.CREATE ZohoProjects.timesheets.UPDATE ZohoProjects.timesheets.DELETE ZohoProjects.users.READ ZohoProjects.users.CREATE ZohoProjects.users.UPDATE ZohoProjects.users.DELETE ZohoPC.files.ALL ZohoProjects.documents.ALL&redirect_uri={RedirectUri}&access_type=offline";
         return Redirect(url);
     }
-
-    //ZohoProjects.documents.ALL 
 
     [HttpGet("api/oauth/callback")]
     public async Task<IActionResult> Callback(string code)
@@ -308,7 +306,6 @@ public class ZohoController : Controller
         }
 
         Console.WriteLine("Received authorization code: " + code);
-
 
         if (Request.Cookies.TryGetValue("refreshToken", out string? refresh))
         {
@@ -444,6 +441,7 @@ public class ZohoController : Controller
             Console.WriteLine(ex.Message);
             return BadRequest("No portals found");
         }
+
         try
         {
             foreach (var portal in PortalResponse.portals)
@@ -471,6 +469,7 @@ public class ZohoController : Controller
             {
                 var Tasks = new Dictionary<string, Zoho_integration.Models.Task>();
                 List<string> GTags = new List<string>();
+                Dictionary<string, string> CustomFieldsTemp = new Dictionary<string, string>();
 
                 var (taskResponse, RawTasks) = await FetchRawTasks(project);
                 var (users, RawUsers) = await FetchUsers(project);
@@ -486,7 +485,6 @@ public class ZohoController : Controller
                 foreach (var tag in project.Tags)
                     GTags.Add(tag.Name);
 
-                Dictionary<string, string> CustomFieldsTemp = new Dictionary<string, string>();
 
                 if (project.CustomFields != null)
                     foreach (var field in project.CustomFields)
@@ -531,9 +529,6 @@ public class ZohoController : Controller
             return BadRequest("No projects found");
         }
 
-        var ess = await httpClient.GetAsync("https://projectsapi.zoho.in/restapi/portal/60033748886/projects/261391000000039023/logs/");
-        var esssss = await ess.Content.ReadAsStringAsync();
-        //return Ok(esssss);
 
         sw.Stop();
         Console.WriteLine("Time taken: " + sw.ElapsedMilliseconds);
@@ -543,7 +538,7 @@ public class ZohoController : Controller
         //return Ok(GResponse);
         //return Ok(projectrawdata);
         //return Ok(resp);
-        return Ok(RawTasks);
+        //return Ok(RawTasks);
         //return Ok(users);
     }
 
