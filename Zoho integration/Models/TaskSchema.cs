@@ -82,23 +82,23 @@ namespace Zoho_integration.Models
         public string? description { get; set; }
         public string? type { get; set; }
         public string? status { get; set; }
-        public List<Owner>? assignees { get; set; }
+        public string? assignees { get; set; }
         public Owner? reporter { get; set; }
         public string? priority { get; set; }
         public class Details
         {
             public List<Owner>? Owners { get; set; }
         }
-        public List<string>? Tags { get; set; }
+        public List<string>? tags { get; set; }
         public string? startDate { get; set; }
         public string? dueDate { get; set; }
         public string? timeEstimate { get; set; }
         public string? timeSpent { get; set; }
         public string? resolution { get; set; }
-        public List<GSubtask>? Subtasks { get; set; }
+        public List<GSubtask>? subtasks { get; set; }
         public List<GComment>? comments { get; set; }
         public List<Attachment>? attactments { get; set; }
         public List<GTimeLog>? timelogs { get; set; }
-        public Dictionary<string, string>? CustomFields { get; set; }
+        public Dictionary<string, string>? customFields { get; set; }
     }
 }
