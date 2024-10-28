@@ -1,20 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Zoho_integration.Models;
 using System.Dynamic;
 using System.Globalization;
 using HtmlAgilityPack;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Amazon;
-using Amazon.SecretsManager;
-using Amazon.SecretsManager.Model;
 using System.Diagnostics;
-
-
-
 
 public class ZohoController : Controller
 {
@@ -67,7 +58,7 @@ public class ZohoController : Controller
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine("No users found");
         }
 
         return (users, RawUsers);
@@ -102,7 +93,7 @@ public class ZohoController : Controller
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Failed to fetch comments");
+            Console.WriteLine("No comments found");
         }
 
         return gComments;
@@ -150,14 +141,10 @@ public class ZohoController : Controller
                     Console.WriteLine("No task logs available.");
                 }
             }
-            else
-            {
-                Console.WriteLine("No data returned from the timesheet API.");
-            }
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine("No timelogs found");
         }
 
         return gTimeLogs;
@@ -165,7 +152,7 @@ public class ZohoController : Controller
     async Task<List<GSubtask>> FetchSubtasks(Zoho_integration.Models.Task task)
     {
         List<GSubtask> gSubtasks = new List<GSubtask>();
-        if (task.Subtasks != null)
+        try
         {
             var SubtaskResponse = await httpClient.GetAsync(task.Subtasks);
             //return Ok(task.Subtasks);
@@ -185,6 +172,10 @@ public class ZohoController : Controller
                 });
             }
         }
+        catch
+        {
+            Console.WriteLine("No subtasks found");
+        }
 
         return gSubtasks;
     }
@@ -200,7 +191,7 @@ public class ZohoController : Controller
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine("No tags found");
         }
 
         return GTaskTags;
@@ -225,16 +216,16 @@ public class ZohoController : Controller
                 //    var docres = await docRes.Content.ReadAsStringAsync();
                 //}
 
-                Dictionary<string, string> CustomFieldstemp = new Dictionary<string, string>();
+                Dictionary<string, string> CustomFieldsTemp = new Dictionary<string, string>();
 
                 try
                 {
                     foreach(var field in task.CustomFields)
-                        CustomFieldstemp.Add(field.fieldName, field.value);
+                        CustomFieldsTemp.Add(field.fieldName, field.value);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("No custom fields found");
                 }
                 
 
@@ -249,7 +240,7 @@ public class ZohoController : Controller
                     startDate = DateTime.ParseExact(task.StartDate, "MM-dd-yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd"),
                     dueDate = DateTime.ParseExact(task.EndDate, "MM-dd-yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd"),
                     reporter = task.Reporter,
-                    CustomFields = CustomFieldstemp,
+                    CustomFields = CustomFieldsTemp,
                     Subtasks = gSubtasks,
                     timelogs = gTimeLogs,
                     comments = gComments
@@ -261,7 +252,7 @@ public class ZohoController : Controller
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine("No tasks found");
         }
 
         return gTasks;
@@ -287,14 +278,10 @@ public class ZohoController : Controller
 
     Stopwatch sw = new Stopwatch();
 
-    
-
-
     public ZohoController(IConfiguration configuration)
     {
         ClientId = Environment.GetEnvironmentVariable("Zoho_ClientId");
         ClientSecret = Environment.GetEnvironmentVariable("Zoho_ClientSecret");
-
     }
 
     private static string accessToken;
@@ -305,9 +292,11 @@ public class ZohoController : Controller
     [HttpGet("authorize")]
     public IActionResult Authorize()
     {
-        var url = $"{AuthUrl}?response_type=code&client_id={ClientId}&scope=ZohoProjects.portals.READ ZohoProjects.portals.CREATE ZohoProjects.portals.UPDATE ZohoProjects.portals.DELETE ZohoProjects.projects.READ ZohoProjects.projects.CREATE ZohoProjects.projects.UPDATE ZohoProjects.projects.DELETE ZohoProjects.tasks.READ ZohoProjects.tasks.CREATE ZohoProjects.tasks.UPDATE ZohoProjects.tasks.DELETE ZohoProjects.milestones.READ ZohoProjects.milestones.CREATE ZohoProjects.milestones.UPDATE ZohoProjects.milestones.DELETE ZohoProjects.bugs.READ ZohoProjects.bugs.CREATE ZohoProjects.bugs.UPDATE ZohoProjects.bugs.DELETE ZohoProjects.forums.READ ZohoProjects.forums.CREATE ZohoProjects.forums.UPDATE ZohoProjects.forums.DELETE ZohoProjects.timesheets.READ ZohoProjects.timesheets.CREATE ZohoProjects.timesheets.UPDATE ZohoProjects.timesheets.DELETE ZohoProjects.users.READ ZohoProjects.users.CREATE ZohoProjects.users.UPDATE ZohoProjects.users.DELETE ZohoProjects.documents.ALL ZohoPC.files.ALL&redirect_uri={RedirectUri}&access_type=offline";
+        var url = $"{AuthUrl}?response_type=code&client_id={ClientId}&scope=ZohoProjects.portals.READ ZohoProjects.portals.CREATE ZohoProjects.portals.UPDATE ZohoProjects.portals.DELETE ZohoProjects.projects.READ ZohoProjects.projects.CREATE ZohoProjects.projects.UPDATE ZohoProjects.projects.DELETE ZohoProjects.tasks.READ ZohoProjects.tasks.CREATE ZohoProjects.tasks.UPDATE ZohoProjects.tasks.DELETE ZohoProjects.milestones.READ ZohoProjects.milestones.CREATE ZohoProjects.milestones.UPDATE ZohoProjects.milestones.DELETE ZohoProjects.bugs.READ ZohoProjects.bugs.CREATE ZohoProjects.bugs.UPDATE ZohoProjects.bugs.DELETE ZohoProjects.forums.READ ZohoProjects.forums.CREATE ZohoProjects.forums.UPDATE ZohoProjects.forums.DELETE ZohoProjects.timesheets.READ ZohoProjects.timesheets.CREATE ZohoProjects.timesheets.UPDATE ZohoProjects.timesheets.DELETE ZohoProjects.users.READ ZohoProjects.users.CREATE ZohoProjects.users.UPDATE ZohoProjects.users.DELETE ZohoPC.files.ALL&redirect_uri={RedirectUri}&access_type=offline";
         return Redirect(url);
     }
+
+    //ZohoProjects.documents.ALL 
 
     [HttpGet("api/oauth/callback")]
     public async Task<IActionResult> Callback(string code)
@@ -320,22 +309,21 @@ public class ZohoController : Controller
 
         Console.WriteLine("Received authorization code: " + code);
 
-        var tokenResponse = await GetAccessToken(code);
 
-        if (tokenResponse == null)
+        if (Request.Cookies.TryGetValue("refreshToken", out string? refresh))
         {
-            Console.WriteLine("Token response is null.");
-            return BadRequest("Failed to retrieve tokens.");
+            refreshToken = refresh;
+            await RefreshAccessToken();
+            Console.WriteLine("REFRESH TOKEN INVOKED");
         }
-
-        accessToken = tokenResponse.access_token;
-        refreshToken = tokenResponse.refresh_token;
-
-        accessTokenExpiryTime = DateTime.Now.AddSeconds(tokenResponse.expires_in);
-
-        Console.WriteLine("Access Token: " + accessToken);
-        Console.WriteLine("Refresh Token: " + refreshToken);
-        Console.WriteLine("Access Token Expiry Time: " + accessTokenExpiryTime);
+        else
+        {
+            await GetAccessToken(code);
+            Console.WriteLine(refresh);
+            Console.WriteLine("Access Token: " + accessToken);
+            Console.WriteLine("Refresh Token: " + refreshToken);
+            Console.WriteLine("Access Token Expiry Time: " + accessTokenExpiryTime);
+        }
 
         //return Ok();
         return RedirectToAction("FetchData");
@@ -364,16 +352,28 @@ public class ZohoController : Controller
                 return null;
             }
             var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
+            accessToken = tokenResponse!.access_token;
+            refreshToken = tokenResponse.refresh_token;
+            accessTokenExpiryTime = DateTime.Now.AddSeconds(tokenResponse.expires_in);
+
+            Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = false, 
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddHours(1)
+            });
+
             return tokenResponse;
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+            Console.WriteLine("Token response is null.");
 
         }
 
         return null;
-        
     }
 
     private async Task<TokenResponse> RefreshAccessToken()
@@ -409,8 +409,6 @@ public class ZohoController : Controller
         return tokenResponse;
     }
 
-
-
     [HttpGet("fetch-data")]
     public async Task<IActionResult> FetchData()
     {
@@ -444,7 +442,7 @@ public class ZohoController : Controller
         }
         catch (Exception ex) {
             Console.WriteLine(ex.Message);
-            return BadRequest(ex.Message);
+            return BadRequest("No portals found");
         }
         try
         {
@@ -464,8 +462,9 @@ public class ZohoController : Controller
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            return BadRequest(ex.Message);
+            return BadRequest("No portals found");
         }
+
         try
         {
             foreach (var project in Projects)
@@ -487,11 +486,11 @@ public class ZohoController : Controller
                 foreach (var tag in project.Tags)
                     GTags.Add(tag.Name);
 
-                Dictionary<string, string> CustomFieldstemp = new Dictionary<string, string>();
+                Dictionary<string, string> CustomFieldsTemp = new Dictionary<string, string>();
 
                 if (project.CustomFields != null)
                     foreach (var field in project.CustomFields)
-                        CustomFieldstemp.Add(field.fieldName, field.value);
+                        CustomFieldsTemp.Add(field.fieldName, field.value);
 
 
                 GProject gProject = new GProject
@@ -529,7 +528,7 @@ public class ZohoController : Controller
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            return BadRequest(ex.Message);
+            return BadRequest("No projects found");
         }
 
         var ess = await httpClient.GetAsync("https://projectsapi.zoho.in/restapi/portal/60033748886/projects/261391000000039023/logs/");
