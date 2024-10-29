@@ -501,8 +501,9 @@ public class ZohoController : Controller
                     email = project.owner_email,
                 };
 
-                foreach (var tag in project.Tags)
-                    GTags.Add(tag.Name);
+                if(project.Tags != null)
+                    foreach (var tag in project.Tags)
+                        GTags.Add(tag.Name);
 
 
                 if (project.CustomFields != null)
@@ -560,7 +561,5 @@ public class ZohoController : Controller
         //return Ok(RawSubTasks);
         //return Ok(users);
     }
-
-
 
 }
