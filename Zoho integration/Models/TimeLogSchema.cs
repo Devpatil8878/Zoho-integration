@@ -6,9 +6,16 @@ namespace Zoho_integration.Models
     {
         public string id { get; set; }
         public string? DateLogged { get; set; }
-        public LogOwner? user { get; set; }
+        public LogUser? user { get; set; }
         public string? timeSpent { get; set; }
     }
+    public class LogUser
+    {
+        public string? id { get; set; }
+        public string? name { get; set; }
+        public string? email { get; set; }
+    }
+
     public class LogOwner
     {
 

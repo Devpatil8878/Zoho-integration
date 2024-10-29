@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 public class ZohoController : Controller
 {
-
+    public List<object> RawSubTasks = new List<object>();
     async Task<(TaskContainer, object)> FetchRawTasks(Project project)
     {
         TaskContainer taskResponse = new TaskContainer();
@@ -80,6 +80,9 @@ public class ZohoController : Controller
                 var comAuthor = new GCommentAuthor();
 
                 comAuthor.name = com.Author;
+                comAuthor.email = "NA";
+                comAuthor.id = "NA";
+
                 gComment.id = com.Id;
                 gComment.author = comAuthor;
                 gComment.timestamp = !string.IsNullOrEmpty(com.Timestamp)
@@ -119,6 +122,14 @@ public class ZohoController : Controller
                     foreach (var log in logcontainer.Timelogs.TaskLogs)
                     {
                         Console.WriteLine(log);
+
+                        LogUser logUser = new LogUser()
+                        {
+                            id = log.User.Id.ToString(),
+                            name = log.User.Name,
+                            email = "NA"
+                        };
+
                         GTimeLog gTimeLog = new GTimeLog()
                         {
                             id = log.Id.ToString(),
@@ -128,7 +139,7 @@ public class ZohoController : Controller
                                     .ToString("yyyy-MM-ddTHH:mm:ss")
                                 : null,
 
-                            user = log.User,
+                            user = logUser,
                             timeSpent = log.timeSpent
                         };
 
@@ -159,6 +170,8 @@ public class ZohoController : Controller
 
             var SubtaskResponseContent = await SubtaskResponse.Content.ReadAsStringAsync();
             var subtaskResponse = JsonSerializer.Deserialize<SubTaskContainer>(SubtaskResponseContent);
+            RawSubTasks.Add(JsonSerializer.Deserialize<object>(SubtaskResponseContent));
+
             var subtasks = subtaskResponse.Tasks;
 
             foreach (var subtask in subtasks)
@@ -168,6 +181,7 @@ public class ZohoController : Controller
                     id = subtask.Id.ToString(),
                     title = subtask.Name,
                     status = subtask.StatusName,
+                    assignees = "NA"
                 });
             }
         }
@@ -235,12 +249,17 @@ public class ZohoController : Controller
                     description = ExtractTextFromHtml(task.Description),
                     status = task.StatusName,
                     priority = task.Priority,
-                    Tags = GTaskTags,
+                    assignees = "NA",
+                    type = "NA",
+                    tags = GTaskTags,
                     startDate = DateTime.ParseExact(task.StartDate, "MM-dd-yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd"),
                     dueDate = DateTime.ParseExact(task.EndDate, "MM-dd-yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd"),
+                    timeEstimate = "NA",
+                    timeSpent = "NA",
+                    resolution = "NA",
                     reporter = task.Reporter,
-                    CustomFields = CustomFieldsTemp,
-                    Subtasks = gSubtasks,
+                    customFields = CustomFieldsTemp,
+                    subtasks = gSubtasks,
                     timelogs = gTimeLogs,
                     comments = gComments
 
@@ -485,8 +504,9 @@ public class ZohoController : Controller
                     email = project.owner_email,
                 };
 
-                foreach (var tag in project.Tags)
-                    GTags.Add(tag.Name);
+                if(project.Tags != null)
+                    foreach (var tag in project.Tags)
+                        GTags.Add(tag.Name);
 
 
                 if (project.CustomFields != null)
@@ -511,7 +531,7 @@ public class ZohoController : Controller
                     Tags = GTags,
                     CustomFields = "NA",
                     Status = project.Status,
-                    Priority = project.Priority,
+                    Priority = "NA",
                     Owner = owner,
                     Tasks = gTasks,
                     resources = users
@@ -541,10 +561,8 @@ public class ZohoController : Controller
         //return Ok(GResponse);
         //return Ok(projectrawdata);
         //return Ok(resp);
-        //return Ok(RawTasks);
+        //return Ok(RawSubTasks);
         //return Ok(users);
     }
-
-
 
 }

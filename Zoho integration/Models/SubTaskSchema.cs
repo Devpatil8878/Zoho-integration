@@ -7,7 +7,7 @@ namespace Zoho_integration.Models
         public string id { get; set; }
         public string title { get; set; }
         public string? status { get; set; }
-        public List<GAssignee>? assignees { get; set; }
+        public string? assignees { get; set; }
     }
     public class SubTaskContainer
     {
