@@ -300,8 +300,11 @@ public class ZohoController : Controller
 
     public ZohoController(IConfiguration configuration)
     {
-        ClientId = Environment.GetEnvironmentVariable("Zoho_ClientId");
-        ClientSecret = Environment.GetEnvironmentVariable("Zoho_ClientSecret");
+        //ClientId = Environment.GetEnvironmentVariable("Zoho_ClientId");
+        //ClientSecret = Environment.GetEnvironmentVariable("Zoho_ClientSecret");
+        ClientId = "1000.MM82IIGRW4W9CAZ3HH2HJ3WCAS2JUQ";
+        ClientSecret = "4d41b0e5c62a44b2e7ae9741061da3ee705f95c5f9";
+       
     }
 
     private static string accessToken;
