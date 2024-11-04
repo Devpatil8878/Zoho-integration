@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 public class ZohoController : Controller
 {
+    public bool WantRawRes = false;
     public List<object> RawSubTasks = new List<object>();
     async Task<(TaskContainer, object)> FetchRawTasks(Project project)
     {
